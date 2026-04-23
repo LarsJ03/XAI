@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+
+# local env files
+.env
+.env.local
+.env.*.local
+
+# sqlite database (created at runtime, lives on Railway volume in prod)
+data/study.sqlite
+data/study.sqlite-shm
+data/study.sqlite-wal
+
+# generated analysis output
+data/analysis/
+
+# logs & os junk
+*.log
+.DS_Store
+
+# editor
+.vscode/
+.idea/
