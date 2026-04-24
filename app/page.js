@@ -1,4 +1,3 @@
-import { decisionCriteria } from "@/lib/study-content";
 import StartTrialButton from "@/components/StartTrialButton";
 
 export default async function LandingPage({ searchParams }) {
@@ -10,48 +9,18 @@ export default async function LandingPage({ searchParams }) {
     <main className="shell">
       <section className="panel hero landing-stack">
         <div className="eyebrow">Counterfactual Study</div>
-        <h1>See how different methods change an image to reach a target class</h1>
+        <h1>Which edited image best explains how the model changes its prediction?</h1>
         <p className="lede">
-          In this study, each method answers the same question: what would need to change in an image
-          so the model predicts a chosen target class instead? You will first answer a short survey,
-          then go through a short preparation phase, then compare five sets of counterfactual examples,
-          and finally complete a short post-task survey.
+          You&apos;ll compare sets of counterfactual images — edits that push the model from its
+          current prediction to a target class — and pick the one that best explains the switch.
         </p>
-
-        <div className="grid two-up">
-          <article className="card">
-            <h3>What the study tests</h3>
-            <p>
-              We are testing how well people can understand and compare counterfactual explanations
-              after a short preparation phase.
-            </p>
-          </article>
-          <article className="card">
-            <h3>What your task is</h3>
-            <p>
-              For each example, choose the result that best shows how the model could move from its
-              current prediction to the target class, then report how confident you feel about that choice.
-            </p>
-          </article>
-        </div>
-
-        <article className="card soft">
-          <h3>Simple example</h3>
-          <p>
-            If the model currently sees a <strong>7</strong> and the target class is <strong>3</strong>,
-            each method proposes a different edited version of the image. Your job is to compare those
-            edited versions and decide which one best explains how the model could switch from 7 to 3.
-          </p>
-        </article>
-
-        <div className="grid criteria-grid">
-          {decisionCriteria.map((criterion) => (
-            <article className="card soft" key={criterion.label}>
-              <h3>{criterion.label}</h3>
-              <p>{criterion.summary}</p>
-            </article>
-          ))}
-        </div>
+        <p className="helper-text">
+          E.g. model sees a <strong>7</strong>, target is <strong>3</strong>: which edited version
+          best shows the switch?
+        </p>
+        <p className="helper-text">
+          Flow: survey → preparation → 5 comparisons → short follow-up.
+        </p>
 
         <div className="actions">
           <StartTrialButton requestedCondition={requestedCondition} />
