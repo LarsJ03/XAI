@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function TrialPage({ params }) {
   const { sessionId, trialIndex } = await params;
-  const session = getSession(sessionId);
+  const session = await getSession(sessionId);
 
   if (!session) {
     notFound();

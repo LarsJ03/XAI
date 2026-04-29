@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export default async function PostTaskPage({ params }) {
   const { sessionId } = await params;
-  const session = getSession(sessionId);
+  const session = await getSession(sessionId);
 
   if (!session) {
     notFound();

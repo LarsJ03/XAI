@@ -4,13 +4,13 @@ import { getSession, resolveStepPath, saveTrialResponse } from "@/lib/session-se
 
 export async function POST(request, { params }) {
   const { sessionId } = await params;
-  const session = getSession(sessionId);
+  const session = await getSession(sessionId);
   if (!session) {
     return NextResponse.json({ error: "Session not found." }, { status: 404 });
   }
 
   const body = await request.json();
-  const updated = saveTrialResponse(session.id, {
+  const updated = await saveTrialResponse(session.id, {
     trialIndex: body.trialIndex,
     trialId: body.trialId,
     selectedMethod: body.selectedMethod,
