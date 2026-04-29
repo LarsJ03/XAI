@@ -31,6 +31,22 @@ or:
 /?condition=text
 ```
 
+## Downloading data
+
+Set an `EXPORT_TOKEN` environment variable on the service, then you can download:
+
+```text
+/api/export/json?token=YOUR_EXPORT_TOKEN
+```
+
+or a SQLite snapshot:
+
+```text
+/api/export/sqlite?token=YOUR_EXPORT_TOKEN
+```
+
+The JSON export includes `sessions`, `surveyResponses`, `trialResponses`, and `events`.
+
 ## Database
 
 The SQLite file is created automatically at:
