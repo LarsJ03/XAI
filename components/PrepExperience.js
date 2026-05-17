@@ -67,14 +67,6 @@ function buildComparisonSignals(option, exampleOptions) {
       only: "Only change score",
       missing: "No change score"
     }),
-    plausibility: describeRank(getMetricRank(exampleOptions, option.method, "implausibility"), {
-      best: "Most realistic",
-      betterHalf: "More realistic",
-      worseHalf: "Less realistic",
-      worst: "Least realistic",
-      only: "Only realism score",
-      missing: "No realism score"
-    }),
     speed: describeRank(getMetricRank(exampleOptions, option.method, "optimTime"), {
       best: "Fastest",
       betterHalf: "Quick",
@@ -107,10 +99,6 @@ function buildMethodHighlights(option, example, methodMeta, exampleOptions) {
       value: `${signals.change}. This tells you whether the method changed the image a little or a lot.`
     },
     {
-      label: "Realism",
-      value: `${signals.plausibility}. This tells you whether the result still looks believable.`
-    },
-    {
       label: "Method",
       value: methodMeta?.description || "No method description available."
     }
@@ -128,7 +116,7 @@ function buildWhyExplanation(option, example, methodMeta, exampleOptions) {
         ? `This method succeeds for this example: after the edit, the model changes from ${example.originalPredictedLabel} to the target class ${example.target}.`
         : `This method does not succeed for this example: after the edit, the model still predicts ${predictedLabel} instead of the target class ${example.target}.`
       : "This method did not return a usable counterfactual for this example, so there is no successful edit to inspect.",
-    `Compared with the other methods on this example, this result shows ${signals.change.toLowerCase()} and is ${signals.plausibility.toLowerCase()}.`,
+    `Compared with the other methods on this example, this result shows ${signals.change.toLowerCase()}.`,
     methodMeta?.description || "No method description available.",
     "Use this explanation to understand the method’s trade-off, not just whether it won or lost on one score."
   ];
@@ -139,6 +127,7 @@ export default function PrepExperience({ sessionId, condition, methods, examples
   const [selectedExample, setSelectedExample] = useState(0);
   const [selectedMethod, setSelectedMethod] = useState(examples[0]?.options[0]?.method ?? null);
   const [infoPanel, setInfoPanel] = useState(null);
+  const [showMethodHint, setShowMethodHint] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const startedAt = useMemo(() => Date.now(), []);
 
@@ -168,6 +157,22 @@ export default function PrepExperience({ sessionId, condition, methods, examples
     setSelectedMethod(example.options[0]?.method ?? null);
   }, [example]);
 
+  useEffect(() => {
+    if (condition !== "dashboard") return;
+    if (window.localStorage.getItem("method-info-hint-dismissed") === "true") return;
+    setShowMethodHint(true);
+  }, [condition]);
+
+  function dismissMethodHint() {
+    window.localStorage.setItem("method-info-hint-dismissed", "true");
+    setShowMethodHint(false);
+  }
+
+  function openMethodInfo() {
+    dismissMethodHint();
+    setInfoPanel("methods");
+  }
+
   async function handleContinue() {
     setIsSubmitting(true);
 
@@ -183,12 +188,12 @@ export default function PrepExperience({ sessionId, condition, methods, examples
   }
 
   return (
-    <section className="panel stack-lg">
+    <section className="panel prep-panel stack-md">
       <div className="eyebrow">Preparation</div>
       <h1>{conditionMeta[condition].label}</h1>
       <p className="lede">{conditionMeta[condition].description}</p>
 
-      <div className="grid criteria-grid">
+      <div className="grid criteria-grid compact-criteria">
         {decisionCriteria.map((criterion) => (
           <article className="card soft" key={criterion.label}>
             <h3>{criterion.label}</h3>
@@ -198,17 +203,7 @@ export default function PrepExperience({ sessionId, condition, methods, examples
       </div>
 
       {condition === "dashboard" ? (
-        <div className="stack-lg">
-          <article className="card soft">
-            <div className="section-header">
-              <h3>How to use this preparation phase</h3>
-              <button className="info-button" onClick={() => setInfoPanel("guide")} type="button">
-                More info
-              </button>
-            </div>
-            <p className="helper-text">Choose a method and compare its edited image with the original image.</p>
-          </article>
-
+        <div className="stack-md">
           <div className="prep-nav">
             <button
               className="button secondary"
@@ -236,14 +231,29 @@ export default function PrepExperience({ sessionId, condition, methods, examples
             </button>
           </div>
 
-          <article className="card">
+          <article className="card method-select-card">
             <div className="section-header">
               <h3>Select a method to compare</h3>
-              <button className="info-button" onClick={() => setInfoPanel("methods")} type="button">
-                Method info
-              </button>
+              <div className="method-info-anchor">
+                <button className="info-button method-info-button" onClick={openMethodInfo} type="button">
+                  Method info
+                </button>
+                {showMethodHint ? (
+                  <div className="method-info-coachmark" role="status">
+                    <p>Click Method info to learn what the labels and methods mean.</p>
+                    <div className="coachmark-actions">
+                      <button className="coachmark-link" onClick={openMethodInfo} type="button">
+                        Show me
+                      </button>
+                      <button className="coachmark-link muted" onClick={dismissMethodHint} type="button">
+                        Got it
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             </div>
-            <div className="option-strip">
+            <div className="option-strip compact">
               {example.options.map((option) => {
                 const isSelected = selectedMethod === option.method;
                 const signals = buildComparisonSignals(option, example.options);
@@ -265,7 +275,6 @@ export default function PrepExperience({ sessionId, condition, methods, examples
                     </div>
                     <div className="compare-chip-row">
                       <span className="compare-chip neutral">{signals.change}</span>
-                      <span className="compare-chip neutral">{signals.plausibility}</span>
                     </div>
                   </button>
                 );
@@ -295,14 +304,6 @@ export default function PrepExperience({ sessionId, condition, methods, examples
                   <span className="image-label">Edited result</span>
                   <strong>{selectedOption?.methodLabel || "Select a method"}</strong>
                 </div>
-                <button
-                  className="info-button"
-                  onClick={() => setInfoPanel("selected-method")}
-                  type="button"
-                  disabled={!selectedOption}
-                >
-                  Why?
-                </button>
               </div>
               {selectedOption ? (
                 <>
@@ -331,9 +332,9 @@ export default function PrepExperience({ sessionId, condition, methods, examples
           </div>
         </div>
       ) : (
-        <div className="grid two-up">
+        <div className="grid one-up">
           <article className="card">
-            <h3>The five methods</h3>
+            <h3>The methods</h3>
             <div className="stack-sm">
               {methods.map((method) => (
                 <div key={method.id}>
@@ -342,26 +343,6 @@ export default function PrepExperience({ sessionId, condition, methods, examples
                 </div>
               ))}
             </div>
-          </article>
-          <article className="card">
-            <h3>What to look for</h3>
-            <div className="stack-sm">
-              <div>
-                <strong>Did it reach the target?</strong>
-                <p>Check whether the edited image makes the model predict the target class.</p>
-              </div>
-              <div>
-                <strong>What changed?</strong>
-                <p>Look at which parts of the image were changed and whether those changes are easy to follow.</p>
-              </div>
-              <div>
-                <strong>Does it still look believable?</strong>
-                <p>Compare the edited image with the original and judge whether it still looks reasonable.</p>
-              </div>
-            </div>
-            <p className="helper-text">
-              Use this preparation phase to build a simple comparison strategy before the actual trial starts.
-            </p>
           </article>
         </div>
       )}
@@ -395,13 +376,34 @@ export default function PrepExperience({ sessionId, condition, methods, examples
             ) : null}
 
             {infoPanel === "methods" ? (
-              <div className="stack-sm">
-                {methods.map((method) => (
-                  <div key={method.id}>
-                    <strong>{method.label}</strong>
-                    <p>{method.description}</p>
-                  </div>
-                ))}
+              <div className="method-info-grid">
+                <section className="method-info-column">
+                  <h4>What the card labels mean</h4>
+                  <article className="info-card">
+                    <strong>Target reached / missed</strong>
+                    <p>
+                      <strong>Target reached</strong> means the edited image made the model predict the target digit.
+                      <strong> Target missed</strong> means the model still predicted another digit after the edit.
+                    </p>
+                  </article>
+                  <article className="info-card">
+                    <strong>Change size</strong>
+                    <p>
+                      <strong>Smallest change</strong>, <strong>smaller change</strong>, <strong>larger change</strong>,
+                      and <strong>largest change</strong> compare how much the image changed relative to the other methods
+                      for the same example. Smaller changes stay closer to the original image.
+                    </p>
+                  </article>
+                </section>
+                <section className="method-info-column">
+                  <h4>Methods</h4>
+                  {methods.map((method) => (
+                    <article className="info-card" key={method.id}>
+                      <strong>{method.label}</strong>
+                      <p>{method.description}</p>
+                    </article>
+                  ))}
+                </section>
               </div>
             ) : null}
 

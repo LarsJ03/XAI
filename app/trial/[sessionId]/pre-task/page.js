@@ -19,8 +19,8 @@ export default async function PreTaskPage({ params }) {
   }
 
   return (
-    <main className="shell narrow">
-      <section className="panel stack-lg">
+    <main className="shell survey-shell">
+      <section className="panel survey-panel stack-lg">
         <div className="eyebrow">Pre-task interview</div>
         <h1>Tell us a little about your background first</h1>
         <p className="lede">

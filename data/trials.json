@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-07T14:54:32.493806+00:00",
+  "generatedAt": "2026-05-17T11:34:50.248887+00:00",
   "dataset": "MNIST",
   "methods": [
     {
@@ -17,10 +17,6 @@
     {
       "id": "alibi-Proto-CF",
       "label": "Alibi Proto-CF"
-    },
-    {
-      "id": "alibi-CF",
-      "label": "Alibi CF"
     }
   ],
   "conditions": {
@@ -33,6 +29,368 @@
       "description": "Participants see the same images plus an interactive comparison dashboard and metric guidance."
     }
   },
+  "prepExamples": [
+    {
+      "id": "mnist-6-to-5",
+      "dataset": "MNIST",
+      "imageId": 6,
+      "target": 5,
+      "originalLabel": 1,
+      "originalPredictedLabel": 1,
+      "originalAsset": "assets/mnist-6-to-5-original.svg",
+      "question": "Which explanation best supports the target digit 5?",
+      "options": [
+        {
+          "method": "PIECE",
+          "methodLabel": "PIECE",
+          "asset": "assets/mnist-6-to-5-piece.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 0,
+            "predictedLabel": 1,
+            "l1": 41.64373,
+            "l2": 6.740623,
+            "linf": 1.851763,
+            "implausibility": 0.5922706301344653,
+            "optimTime": 32.417741775512695
+          }
+        },
+        {
+          "method": "Min-Edit",
+          "methodLabel": "Min-Edit",
+          "asset": "assets/mnist-6-to-5-min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 5,
+            "l1": 80.26915,
+            "l2": 9.937809,
+            "linf": 1.9941584,
+            "implausibility": 0.5875215599450144,
+            "optimTime": 23.038756847381592
+          }
+        },
+        {
+          "method": "C-Min-Edit",
+          "methodLabel": "C-Min-Edit",
+          "asset": "assets/mnist-6-to-5-c_min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 0,
+            "predictedLabel": 1,
+            "l1": 78.955894,
+            "l2": 10.435565,
+            "linf": 1.9757845,
+            "implausibility": 0.5899269452618066,
+            "optimTime": 67.64235734939575
+          }
+        },
+        {
+          "method": "alibi-Proto-CF",
+          "methodLabel": "Alibi Proto-CF",
+          "asset": "assets/mnist-6-to-5-alibi_proto_cf.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 5,
+            "l1": 761.7024,
+            "l2": 32.165016,
+            "linf": 2.0,
+            "implausibility": 0.0077155337645591,
+            "optimTime": 39.21505951881409
+          }
+        }
+      ]
+    },
+    {
+      "id": "mnist-7-to-8",
+      "dataset": "MNIST",
+      "imageId": 7,
+      "target": 8,
+      "originalLabel": 4,
+      "originalPredictedLabel": 4,
+      "originalAsset": "assets/mnist-7-to-8-original.svg",
+      "question": "Which explanation best supports the target digit 8?",
+      "options": [
+        {
+          "method": "PIECE",
+          "methodLabel": "PIECE",
+          "asset": "assets/mnist-7-to-8-piece.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 8,
+            "l1": 120.31624,
+            "l2": 12.29116,
+            "linf": 1.9921569,
+            "implausibility": 0.5695714719847506,
+            "optimTime": 0.5459892749786377
+          }
+        },
+        {
+          "method": "Min-Edit",
+          "methodLabel": "Min-Edit",
+          "asset": "assets/mnist-7-to-8-min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 8,
+            "l1": 125.579666,
+            "l2": 12.682114,
+            "linf": 1.9921569,
+            "implausibility": 0.5698593545324213,
+            "optimTime": 0.5161106586456299
+          }
+        },
+        {
+          "method": "C-Min-Edit",
+          "methodLabel": "C-Min-Edit",
+          "asset": "assets/mnist-7-to-8-c_min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 8,
+            "l1": 122.50073,
+            "l2": 12.484951,
+            "linf": 1.9921569,
+            "implausibility": 0.5699503613567244,
+            "optimTime": 4.081903219223023
+          }
+        },
+        {
+          "method": "alibi-Proto-CF",
+          "methodLabel": "Alibi Proto-CF",
+          "asset": "assets/mnist-7-to-8-alibi_proto_cf.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 8,
+            "l1": 566.5615,
+            "l2": 21.373104,
+            "linf": 1.6875961,
+            "implausibility": 0.1816136167707106,
+            "optimTime": 37.96994352340698
+          }
+        }
+      ]
+    },
+    {
+      "id": "mnist-8-to-3",
+      "dataset": "MNIST",
+      "imageId": 8,
+      "target": 3,
+      "originalLabel": 9,
+      "originalPredictedLabel": 9,
+      "originalAsset": "assets/mnist-8-to-3-original.svg",
+      "question": "Which explanation best supports the target digit 3?",
+      "options": [
+        {
+          "method": "PIECE",
+          "methodLabel": "PIECE",
+          "asset": "assets/mnist-8-to-3-piece.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 0,
+            "predictedLabel": 9,
+            "l1": 160.36243,
+            "l2": 15.224894,
+            "linf": 1.9989566,
+            "implausibility": 0.5635453890033789,
+            "optimTime": 31.704710483551025
+          }
+        },
+        {
+          "method": "Min-Edit",
+          "methodLabel": "Min-Edit",
+          "asset": "assets/mnist-8-to-3-min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 3,
+            "l1": 168.45905,
+            "l2": 15.656828,
+            "linf": 1.9983964,
+            "implausibility": 0.5587557687589118,
+            "optimTime": 0.6018922328948975
+          }
+        },
+        {
+          "method": "C-Min-Edit",
+          "methodLabel": "C-Min-Edit",
+          "asset": "assets/mnist-8-to-3-c_min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 3,
+            "l1": 164.87286,
+            "l2": 15.508782,
+            "linf": 1.9981844,
+            "implausibility": 0.5618870274529223,
+            "optimTime": 5.231212854385376
+          }
+        },
+        {
+          "method": "alibi-Proto-CF",
+          "methodLabel": "Alibi Proto-CF",
+          "asset": "assets/mnist-8-to-3-alibi_proto_cf.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 3,
+            "l1": 534.3596,
+            "l2": 20.231543,
+            "linf": 1.7603427,
+            "implausibility": 0.2162632904315929,
+            "optimTime": 38.80505323410034
+          }
+        }
+      ]
+    },
+    {
+      "id": "mnist-9-to-4",
+      "dataset": "MNIST",
+      "imageId": 9,
+      "target": 4,
+      "originalLabel": 5,
+      "originalPredictedLabel": 5,
+      "originalAsset": "assets/mnist-9-to-4-original.svg",
+      "question": "Which explanation best supports the target digit 4?",
+      "options": [
+        {
+          "method": "PIECE",
+          "methodLabel": "PIECE",
+          "asset": "assets/mnist-9-to-4-piece.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 0,
+            "predictedLabel": 5,
+            "l1": 253.24153,
+            "l2": 20.585543,
+            "linf": 2.0,
+            "implausibility": 0.6145366644552235,
+            "optimTime": 31.49215841293335
+          }
+        },
+        {
+          "method": "Min-Edit",
+          "methodLabel": "Min-Edit",
+          "asset": "assets/mnist-9-to-4-min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 4,
+            "l1": 247.55557,
+            "l2": 20.29582,
+            "linf": 1.9999999,
+            "implausibility": 0.610083882002932,
+            "optimTime": 3.6623480319976807
+          }
+        },
+        {
+          "method": "C-Min-Edit",
+          "methodLabel": "C-Min-Edit",
+          "asset": "assets/mnist-9-to-4-c_min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 4,
+            "l1": 247.50566,
+            "l2": 20.309418,
+            "linf": 2.0,
+            "implausibility": 0.6102034894776255,
+            "optimTime": 7.472167253494263
+          }
+        },
+        {
+          "method": "alibi-Proto-CF",
+          "methodLabel": "Alibi Proto-CF",
+          "asset": "assets/mnist-9-to-4-alibi_proto_cf.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 4,
+            "l1": 280.133,
+            "l2": 11.497201,
+            "linf": 1.7495631,
+            "implausibility": 0.3960483238536754,
+            "optimTime": 40.54148936271668
+          }
+        }
+      ]
+    },
+    {
+      "id": "mnist-12-to-5",
+      "dataset": "MNIST",
+      "imageId": 12,
+      "target": 5,
+      "originalLabel": 6,
+      "originalPredictedLabel": 6,
+      "originalAsset": "assets/mnist-12-to-5-original.svg",
+      "question": "Which explanation best supports the target digit 5?",
+      "options": [
+        {
+          "method": "PIECE",
+          "methodLabel": "PIECE",
+          "asset": "assets/mnist-12-to-5-piece.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 0,
+            "predictedLabel": 6,
+            "l1": 74.142685,
+            "l2": 7.6654134,
+            "linf": 1.9764706,
+            "implausibility": 0.5064929888173837,
+            "optimTime": 30.99705052375793
+          }
+        },
+        {
+          "method": "Min-Edit",
+          "methodLabel": "Min-Edit",
+          "asset": "assets/mnist-12-to-5-min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 5,
+            "l1": 163.5185,
+            "l2": 14.223445,
+            "linf": 1.9917227,
+            "implausibility": 0.4602538494741778,
+            "optimTime": 11.11076521873474
+          }
+        },
+        {
+          "method": "C-Min-Edit",
+          "methodLabel": "C-Min-Edit",
+          "asset": "assets/mnist-12-to-5-c_min_edit.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 5,
+            "l1": 123.964775,
+            "l2": 11.424871,
+            "linf": 1.9764706,
+            "implausibility": 0.5112284322680758,
+            "optimTime": 18.055646419525143
+          }
+        },
+        {
+          "method": "alibi-Proto-CF",
+          "methodLabel": "Alibi Proto-CF",
+          "asset": "assets/mnist-12-to-5-alibi_proto_cf.svg",
+          "available": true,
+          "metrics": {
+            "correctness": 1,
+            "predictedLabel": 5,
+            "l1": 548.49695,
+            "l2": 20.964296,
+            "linf": 1.2524928,
+            "implausibility": 0.1599374058352445,
+            "optimTime": 39.63713836669922
+          }
+        }
+      ]
+    }
+  ],
   "trials": [
     {
       "id": "mnist-1-to-3",
@@ -102,21 +460,6 @@
             "linf": 2.0,
             "implausibility": 0.08239962078174,
             "optimTime": 34.286036014556885
-          }
-        },
-        {
-          "method": "alibi-CF",
-          "methodLabel": "Alibi CF",
-          "asset": "assets/mnist-1-to-3-alibi_cf.svg",
-          "available": false,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": null,
-            "l1": null,
-            "l2": null,
-            "linf": null,
-            "implausibility": null,
-            "optimTime": 3.9733850955963135
           }
         }
       ]
@@ -190,21 +533,6 @@
             "implausibility": -0.0038341035576323,
             "optimTime": 34.3324077129364
           }
-        },
-        {
-          "method": "alibi-CF",
-          "methodLabel": "Alibi CF",
-          "asset": "assets/mnist-2-to-7-alibi_cf.svg",
-          "available": false,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": null,
-            "l1": null,
-            "l2": null,
-            "linf": null,
-            "implausibility": null,
-            "optimTime": 4.507683038711548
-          }
         }
       ]
     },
@@ -276,21 +604,6 @@
             "linf": 2.0,
             "implausibility": 0.0766016741923195,
             "optimTime": 35.032129526138306
-          }
-        },
-        {
-          "method": "alibi-CF",
-          "methodLabel": "Alibi CF",
-          "asset": "assets/mnist-3-to-7-alibi_cf.svg",
-          "available": false,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": null,
-            "l1": null,
-            "l2": null,
-            "linf": null,
-            "implausibility": null,
-            "optimTime": 5.478310823440552
           }
         }
       ]
@@ -364,21 +677,6 @@
             "implausibility": 0.200069305346354,
             "optimTime": 35.62922143936157
           }
-        },
-        {
-          "method": "alibi-CF",
-          "methodLabel": "Alibi CF",
-          "asset": "assets/mnist-4-to-3-alibi_cf.svg",
-          "available": false,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": null,
-            "l1": null,
-            "l2": null,
-            "linf": null,
-            "implausibility": null,
-            "optimTime": 5.040464162826538
-          }
         }
       ]
     },
@@ -450,108 +748,6 @@
             "linf": 1.79121,
             "implausibility": 0.2259961280330616,
             "optimTime": 39.41403555870056
-          }
-        },
-        {
-          "method": "alibi-CF",
-          "methodLabel": "Alibi CF",
-          "asset": "assets/mnist-5-to-2-alibi_cf.svg",
-          "available": false,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": null,
-            "l1": null,
-            "l2": null,
-            "linf": null,
-            "implausibility": null,
-            "optimTime": 6.165332317352295
-          }
-        }
-      ]
-    },
-    {
-      "id": "mnist-6-to-5",
-      "dataset": "MNIST",
-      "imageId": 6,
-      "target": 5,
-      "originalLabel": 1,
-      "originalPredictedLabel": 1,
-      "originalAsset": "assets/mnist-6-to-5-original.svg",
-      "question": "Which explanation best supports the target digit 5?",
-      "options": [
-        {
-          "method": "PIECE",
-          "methodLabel": "PIECE",
-          "asset": "assets/mnist-6-to-5-piece.svg",
-          "available": true,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": 1,
-            "l1": 41.64373,
-            "l2": 6.740623,
-            "linf": 1.851763,
-            "implausibility": 0.5922706301344653,
-            "optimTime": 32.417741775512695
-          }
-        },
-        {
-          "method": "Min-Edit",
-          "methodLabel": "Min-Edit",
-          "asset": "assets/mnist-6-to-5-min_edit.svg",
-          "available": true,
-          "metrics": {
-            "correctness": 1,
-            "predictedLabel": 5,
-            "l1": 80.26915,
-            "l2": 9.937809,
-            "linf": 1.9941584,
-            "implausibility": 0.5875215599450144,
-            "optimTime": 23.038756847381592
-          }
-        },
-        {
-          "method": "C-Min-Edit",
-          "methodLabel": "C-Min-Edit",
-          "asset": "assets/mnist-6-to-5-c_min_edit.svg",
-          "available": true,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": 1,
-            "l1": 78.955894,
-            "l2": 10.435565,
-            "linf": 1.9757845,
-            "implausibility": 0.5899269452618066,
-            "optimTime": 67.64235734939575
-          }
-        },
-        {
-          "method": "alibi-Proto-CF",
-          "methodLabel": "Alibi Proto-CF",
-          "asset": "assets/mnist-6-to-5-alibi_proto_cf.svg",
-          "available": true,
-          "metrics": {
-            "correctness": 1,
-            "predictedLabel": 5,
-            "l1": 761.7024,
-            "l2": 32.165016,
-            "linf": 2.0,
-            "implausibility": 0.0077155337645591,
-            "optimTime": 39.21505951881409
-          }
-        },
-        {
-          "method": "alibi-CF",
-          "methodLabel": "Alibi CF",
-          "asset": "assets/mnist-6-to-5-alibi_cf.svg",
-          "available": false,
-          "metrics": {
-            "correctness": 0,
-            "predictedLabel": null,
-            "l1": null,
-            "l2": null,
-            "linf": null,
-            "implausibility": null,
-            "optimTime": 6.533245086669922
           }
         }
       ]

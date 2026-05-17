@@ -37,23 +37,8 @@ export default function PreTaskForm({ sessionId, questions }) {
     }));
   }
 
-  function validate() {
-    return questions.every((question) => {
-      const value = answers[question.id];
-      if (question.kind === "likert") {
-        return typeof value === "number";
-      }
-      return typeof value === "string" && value.trim().length > 0;
-    });
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
-    if (!validate()) {
-      setError("Please answer all pre-task questions before continuing.");
-      return;
-    }
-
     setError("");
     setIsSubmitting(true);
 

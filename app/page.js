@@ -11,15 +11,29 @@ export default async function LandingPage({ searchParams }) {
         <div className="eyebrow">Counterfactual Study</div>
         <h1>Which edited image best explains how the model changes its prediction?</h1>
         <p className="lede">
-          You&apos;ll compare sets of counterfactual images, edits that push the model from its
-          current prediction to a target class and pick the one that best explains the switch.
+          You will judge image-based counterfactual explanations. Each task starts with an original
+          handwritten digit and a target digit. You will compare edited versions of the original and
+          choose the edit that best explains how the model could change its prediction.
         </p>
         <p className="helper-text">
-          E.g. model sees a <strong>7</strong>, target is <strong>3</strong>: which edited version
-          best shows the switch?
+          Example: if the model currently predicts <strong>7</strong> and the target is{" "}
+          <strong>3</strong>, pick the edited image that most clearly supports the move from 7 to 3.
         </p>
         <p className="helper-text">
-          Flow: survey → preparation → 5 comparisons → short follow-up.
+          Flow: short pre-task questions, preparation examples, 5 comparison trials, then a short
+          follow-up survey.
+        </p>
+        <p className="helper-text">
+          New to counterfactuals? Read this simple overview first:{" "}
+          <a
+            className="text-link"
+            href="https://christophm.github.io/interpretable-ml-book/counterfactual.html"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Counterfactual Explanations in Interpretable Machine Learning
+          </a>
+          .
         </p>
 
         <div className="actions">

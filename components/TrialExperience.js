@@ -28,11 +28,6 @@ export default function TrialExperience({ sessionId, trial, trialIndex, totalTri
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!selectedMethod || typeof confidence !== "number" || typeof trustworthiness !== "number" || !choiceReason.trim()) {
-      setError("Please choose one counterfactual, rate confidence and trustworthiness, and explain your choice before continuing.");
-      return;
-    }
-
     setError("");
     setIsSubmitting(true);
 
@@ -42,10 +37,10 @@ export default function TrialExperience({ sessionId, trial, trialIndex, totalTri
       body: JSON.stringify({
         trialIndex,
         trialId: trial.id,
-        selectedMethod,
+        selectedMethod: selectedMethod || "not-selected",
         confidence,
         trustworthiness,
-        choiceReason: choiceReason.trim(),
+        choiceReason: choiceReason.trim() || null,
         timeSpentMs: Date.now() - startedAt
       })
     });
@@ -54,14 +49,12 @@ export default function TrialExperience({ sessionId, trial, trialIndex, totalTri
   }
 
   return (
-    <section className="panel stack-lg">
-      <div className="topline">
-        <div>
-          <div className="eyebrow">
-            Trial {trialIndex + 1} of {totalTrials}
-          </div>
-          <h1>{trial.question}</h1>
+    <section className="panel trial-panel stack-md">
+      <div className="trial-title-block">
+        <div className="eyebrow">
+          Trial {trialIndex + 1} of {totalTrials}
         </div>
+        <h1>{trial.question}</h1>
         <div className="trial-progress">
           <div className="trial-progress-label">
             <span>Progress</span>
@@ -73,116 +66,114 @@ export default function TrialExperience({ sessionId, trial, trialIndex, totalTri
         </div>
       </div>
 
-      <div className="reference-layout">
-        <article className="image-card trial-reference-card">
-          <div className="image-label">Original image</div>
-          <img src={trial.originalAsset} alt="Original trial example" className="digit-image" />
-        </article>
-        <article className="card trial-reference-card">
-          <h3>Task context</h3>
-          <p>
-            Original label: <strong>{trial.originalLabel}</strong>
-          </p>
-          <p>
-            Model prediction: <strong>{trial.originalPredictedLabel}</strong>
-          </p>
-          <p>
-            Target class: <strong>{trial.target}</strong>
-          </p>
-          <p className="helper-text">
-            Keep three questions in mind: does the image support the target class, does it still look
-            plausible, and can you understand the change well enough to defend it?
-          </p>
-        </article>
-      </div>
-
-      <form className="stack-lg" onSubmit={handleSubmit}>
+      <form className="trial-form" onSubmit={handleSubmit}>
         {error ? <div className="error-banner">{error}</div> : null}
-        <article className="card">
-          <h3>Select one explanation image</h3>
-          <p className="helper-text">
-            Choose the explanation you would rank highest overall for the target class. After that,
-            rate how confident and trustworthy that choice feels to you.
-          </p>
-        </article>
-        <div className="trial-grid">
-          {trial.options.map((option) => (
-            <label className={`trial-card ${selectedMethod === option.method ? "selected" : ""}`} key={option.method}>
-              <input
-                type="radio"
-                name="selectedMethod"
-                value={option.method}
-                checked={selectedMethod === option.method}
-                onChange={() => setSelectedMethod(option.method)}
-              />
-              <div className="trial-card-header">
-                <span>{option.methodLabel}</span>
+
+        <div className="trial-choice-layout">
+          <aside className="trial-card trial-context-card">
+            <div className="image-label">Original image</div>
+            <img src={trial.originalAsset} alt="Original trial example" className="digit-image" />
+            <dl className="context-list">
+              <div>
+                <dt>Original digit</dt>
+                <dd>{trial.originalLabel}</dd>
               </div>
-              <img src={option.asset} alt={option.methodLabel} className="digit-image" />
+              <div>
+                <dt>Model currently predicts</dt>
+                <dd>{trial.originalPredictedLabel}</dd>
+              </div>
+              <div>
+                <dt>Target digit</dt>
+                <dd>{trial.target}</dd>
+              </div>
+            </dl>
+          </aside>
+
+          <div className="trial-method-grid">
+            {trial.options.map((option) => (
+              <label className={`trial-card ${selectedMethod === option.method ? "selected" : ""}`} key={option.method}>
+                <input
+                  type="radio"
+                  name="selectedMethod"
+                  value={option.method}
+                  checked={selectedMethod === option.method}
+                  onChange={() => setSelectedMethod(option.method)}
+                />
+                <div className="trial-card-header">
+                  <span>{option.methodLabel}</span>
+                </div>
+                <img src={option.asset} alt={option.methodLabel} className="digit-image" />
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <article className="card response-card">
+          <div className="response-ratings">
+            <div className="rating-block">
+              <h3>Confidence</h3>
+              <div className="likert-row compact">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <label className="likert-chip" key={value}>
+                    <input
+                      type="radio"
+                      name="confidence"
+                      value={value}
+                      checked={confidence === value}
+                      onChange={() => setConfidence(value)}
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+              <div className="likert-caption">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+            </div>
+
+            <div className="rating-block">
+              <h3>Trustworthiness</h3>
+              <div className="likert-row compact">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <label className="likert-chip" key={value}>
+                    <input
+                      type="radio"
+                      name="trustworthiness"
+                      value={value}
+                      checked={trustworthiness === value}
+                      onChange={() => setTrustworthiness(value)}
+                    />
+                    <span>{value}</span>
+                  </label>
+                ))}
+              </div>
+              <div className="likert-caption">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="response-reason-row">
+            <label className="reason-block">
+              <span>Why did you choose it?</span>
+              <textarea
+                className="textarea"
+                rows={4}
+                value={choiceReason}
+                placeholder="Briefly explain what made this explanation the best choice."
+                onChange={(event) => setChoiceReason(event.target.value)}
+              />
             </label>
-          ))}
-        </div>
 
-        <article className="card">
-          <h3>How confident are you in your choice?</h3>
-          <div className="likert-row">
-            {[1, 2, 3, 4, 5].map((value) => (
-              <label className="likert-chip" key={value}>
-                <input
-                  type="radio"
-                  name="confidence"
-                  value={value}
-                  checked={confidence === value}
-                  onChange={() => setConfidence(value)}
-                />
-                <span>{value}</span>
-              </label>
-            ))}
-          </div>
-          <div className="likert-caption">
-            <span>Not confident</span>
-            <span>Very confident</span>
+            <div className="actions response-actions">
+              <button className="button" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Saving..." : trialIndex + 1 === totalTrials ? "Finish trials" : "Next trial"}
+              </button>
+            </div>
           </div>
         </article>
-
-        <article className="card">
-          <h3>How trustworthy does this explanation feel?</h3>
-          <div className="likert-row">
-            {[1, 2, 3, 4, 5].map((value) => (
-              <label className="likert-chip" key={value}>
-                <input
-                  type="radio"
-                  name="trustworthiness"
-                  value={value}
-                  checked={trustworthiness === value}
-                  onChange={() => setTrustworthiness(value)}
-                />
-                <span>{value}</span>
-              </label>
-            ))}
-          </div>
-          <div className="likert-caption">
-            <span>Not trustworthy</span>
-            <span>Very trustworthy</span>
-          </div>
-        </article>
-
-        <article className="card">
-          <h3>Why did you choose this explanation?</h3>
-          <textarea
-            className="textarea"
-            rows={4}
-            value={choiceReason}
-            placeholder="Briefly explain what made this explanation the best choice for you."
-            onChange={(event) => setChoiceReason(event.target.value)}
-          />
-        </article>
-
-        <div className="actions">
-          <button className="button" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : trialIndex + 1 === totalTrials ? "Finish trials" : "Next trial"}
-          </button>
-        </div>
       </form>
     </section>
   );

@@ -54,7 +54,7 @@ OPEN_TEXT_IDS = [
     "dashboard_remove_or_add",
 ]
 
-METHODS = ["PIECE", "Min-Edit", "C-Min-Edit", "alibi-Proto-CF", "alibi-CF"]
+METHODS = ["PIECE", "Min-Edit", "C-Min-Edit", "alibi-Proto-CF"]
 
 
 @dataclass

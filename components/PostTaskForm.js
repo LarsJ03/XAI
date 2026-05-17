@@ -86,7 +86,6 @@ export default function PostTaskForm({
       {error ? <div className="error-banner">{error}</div> : null}
 
       <section className="stack-md">
-        <h2>Likert-scale questions</h2>
         <div className="question-grid">
           {likertQuestions.map((question) => (
             <LikertField
@@ -100,7 +99,6 @@ export default function PostTaskForm({
       </section>
 
       <section className="stack-md">
-        <h2>Open questions</h2>
         <div className="question-grid">
           {openQuestions.map((question) => (
             <TextField

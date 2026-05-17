@@ -23,14 +23,10 @@ export default async function PostTaskPage({ params }) {
   }
 
   return (
-    <main className="shell narrow">
-      <section className="panel stack-lg">
+    <main className="shell survey-shell">
+      <section className="panel survey-panel stack-lg">
         <div className="eyebrow">Post-task survey</div>
         <h1>Reflect on the study experience</h1>
-        <p className="lede">
-          These questions capture understanding, plausibility, confidence, and usability after the
-          evaluation task is complete.
-        </p>
         <PostTaskForm
           sessionId={sessionId}
           condition={session.condition}

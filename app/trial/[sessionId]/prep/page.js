@@ -2,7 +2,7 @@ import { redirect, notFound } from "next/navigation";
 
 import PrepExperience from "@/components/PrepExperience";
 import { getSession, resolveStepPath } from "@/lib/session-service";
-import { methods, trialExamples } from "@/lib/study-content";
+import { methods, prepExamples } from "@/lib/study-content";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export default async function PrepPage({ params }) {
         sessionId={sessionId}
         condition={session.condition}
         methods={methods}
-        examples={trialExamples}
+        examples={prepExamples}
       />
     </main>
   );
