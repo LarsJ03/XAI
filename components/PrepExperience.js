@@ -191,19 +191,19 @@ export default function PrepExperience({ sessionId, condition, methods, examples
     <section className="panel prep-panel stack-md">
       <div className="eyebrow">Preparation</div>
       <h1>{conditionMeta[condition].label}</h1>
-      <p className="lede">{conditionMeta[condition].description}</p>
-
-      <div className="grid criteria-grid compact-criteria">
-        {decisionCriteria.map((criterion) => (
-          <article className="card soft" key={criterion.label}>
-            <h3>{criterion.label}</h3>
-            <p>{criterion.summary}</p>
-          </article>
-        ))}
-      </div>
+      {condition === "dashboard" ? <p className="lede">{conditionMeta[condition].description}</p> : null}
 
       {condition === "dashboard" ? (
         <div className="stack-md">
+          <div className="grid criteria-grid compact-criteria">
+            {decisionCriteria.map((criterion) => (
+              <article className="card soft" key={criterion.label}>
+                <h3>{criterion.label}</h3>
+                <p>{criterion.summary}</p>
+              </article>
+            ))}
+          </div>
+
           <div className="prep-nav">
             <button
               className="button secondary"
@@ -335,6 +335,10 @@ export default function PrepExperience({ sessionId, condition, methods, examples
         <div className="grid one-up">
           <article className="card">
             <h3>The methods</h3>
+            <p className="helper-text text-prep-note">
+              Please read these textual explanations carefully. They will help you compare the
+              counterfactual explanations and make choices during the trial phase.
+            </p>
             <div className="stack-sm">
               {methods.map((method) => (
                 <div key={method.id}>

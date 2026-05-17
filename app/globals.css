@@ -869,6 +869,11 @@ h3 {
   margin-bottom: 0;
 }
 
+.text-prep-note {
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
 .prep-panel .compare-stage .digit-image {
   max-width: 300px;
   justify-self: center;
