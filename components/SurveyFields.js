@@ -5,16 +5,6 @@ export function LikertField({ question, value, onChange }) {
     <article className="question-card">
       <label className="question-label">{question.label}</label>
       <div className="likert-row">
-        <label className="likert-chip none-likert-chip">
-          <input
-            type="radio"
-            name={question.id}
-            value="none"
-            checked={value === "none"}
-            onChange={() => onChange(question.id, "none")}
-          />
-          <span>None</span>
-        </label>
         {[1, 2, 3, 4, 5].map((option) => (
           <label className="likert-chip" key={option}>
             <input
