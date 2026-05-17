@@ -27,6 +27,12 @@ body {
   font-family: Georgia, "Times New Roman", serif;
 }
 
+html {
+  font-size: 15px;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -45,9 +51,9 @@ p {
 }
 
 .shell {
-  max-width: 1760px;
+  width: min(calc(100% - clamp(32px, 5vw, 160px)), 1320px);
   margin: 0 auto;
-  padding: 22px 28px 40px;
+  padding: 22px 0 40px;
 }
 
 .shell.narrow {
@@ -250,7 +256,7 @@ h3 {
 
 .likert-row {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 10px;
 }
 

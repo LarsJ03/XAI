@@ -5,6 +5,12 @@ export const metadata = {
   description: "A Next.js user-study flow for comparing counterfactual explanations."
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

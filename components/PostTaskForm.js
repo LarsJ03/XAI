@@ -48,24 +48,8 @@ export default function PostTaskForm({
     }));
   }
 
-  function validate() {
-    const required = [...likertQuestions, ...openQuestions];
-    return required.every((question) => {
-      const value = answers[question.id];
-      if (typeof value === "number") {
-        return true;
-      }
-      return typeof value === "string" && value.trim().length > 0;
-    });
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
-    if (!validate()) {
-      setError("Please answer all required post-task questions before finishing.");
-      return;
-    }
-
     setError("");
     setIsSubmitting(true);
 
